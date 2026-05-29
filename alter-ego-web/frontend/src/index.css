@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: #080808;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+  ::selection { background: #E63946; color: #fff; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #080808; }
+  ::-webkit-scrollbar-thumb { background: #E63946; border-radius: 2px; }
+}
+
+@layer components {
+  .ae-btn {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-3 font-semibold text-sm tracking-widest uppercase transition-all duration-300 cursor-pointer;
+  }
+  .ae-btn-red {
+    @apply ae-btn bg-ae-red text-white hover:bg-white hover:text-ae-red;
+  }
+  .ae-btn-outline {
+    @apply ae-btn border border-white text-white hover:bg-white hover:text-black;
+  }
+  .ae-btn-ghost {
+    @apply ae-btn border border-white/20 text-white/70 hover:border-ae-red hover:text-ae-red;
+  }
+  .ae-input {
+    @apply w-full bg-transparent border-b border-white/20 py-3 px-0 text-white placeholder-white/30 focus:outline-none focus:border-ae-red transition-colors duration-300 text-sm;
+  }
+  .section-label {
+    @apply text-ae-red text-xs font-semibold tracking-[0.3em] uppercase mb-4 block;
+  }
+  .display-title {
+    font-family: 'Bebas Neue', sans-serif;
+    @apply text-white leading-none tracking-wide;
+  }
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* Clip path utilities */
+.clip-diagonal {
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+.clip-diagonal-reverse {
+  clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Player card hover */
+.player-card img {
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.player-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 20s linear infinite;
+  display: flex;
+  width: max-content;
+}
+.marquee-track:hover { animation-play-state: paused; }
+
+/* Fade in up */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fadeInUp 0.7s ease forwards;
+}
+
+/* Line draw */
+@keyframes lineDraw {
+  from { width: 0; }
+  to { width: 100%; }
+}
